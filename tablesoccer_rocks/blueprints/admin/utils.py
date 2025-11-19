@@ -18,7 +18,14 @@ def save_results_from_dyp2db(qualifying_tree, elimination_tree, dyp_date):
 
     for qualifying in qualifying_tree:
         full_name = qualifying['name']
-        first_name, last_name = full_name.split(' ')
+        # Split on first space only, handle names with no spaces or multiple spaces
+        name_parts = full_name.split(' ', 1)
+        if len(name_parts) == 2:
+            first_name, last_name = name_parts
+        else:
+            # Handle single-word names
+            first_name = name_parts[0]
+            last_name = ''
 
         points = dyp_config.participation_points
         first, second, third, fourth = False, False, False, False
@@ -162,7 +169,7 @@ def get_ranking_table_data(dyp_round, match_day):
             func.sum(PlayerHistory.points).desc(),
             # important!!! this will ensure that the most current value of tendency is selected
             # otherwise tendency won't show correctly / won't change
-            func.row_number().over(func.max(PlayerHistory.id))
+            func.row_number().over(order_by=PlayerHistory.id.desc())
         ).group_by(
             Player.full_name
         )
@@ -197,6 +204,8 @@ def get_players_from_dyp_xml(my_xml):
     results = []
     root_sport = ElTree.fromstring(my_xml)
     for child_disziplin in root_sport:
-        for child_meldung in child_disziplin:
-            results.append(child_meldung.attrib)
+        for child_element in child_disziplin:
+            # Only process 'meldung' elements, skip 'runde' and other elements
+            if child_element.tag == 'meldung':
+                results.append(child_element.attrib)
     return results

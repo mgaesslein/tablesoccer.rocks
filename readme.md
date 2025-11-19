@@ -38,9 +38,8 @@ Used by [Mitkickzentrale](https://mitkickzentrale.de/), a registered, self-gover
    1. `cd .\tablesoccer_rocks\static\`
    2. `npm install`
 7. Initialize database (go back to root folder):
-   1. `flask --app tablesoccer_rocks shell`
-   2. `>>> from init_db import init_db`
-   3. `>>> init_db()`: This creates a `SQLite` database using models in `models`-folder.
+   1. `flask --app tablesoccer_rocks db init` : This creates a `SQLite` database using models in `models`-folder.
+   2. `flask --app tablesoccer_rocks user create admin@kc-muenchen.de Admin123!`
 8. Spin up development server: `flask run --debug`
 9. Access page at `http://127.0.0.1:5000/`
 
