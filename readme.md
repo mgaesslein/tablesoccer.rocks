@@ -29,27 +29,21 @@ Used by [Mitkickzentrale](https://mitkickzentrale.de/), a registered, self-gover
 
 ### Installation
 
-1. Clone from `GitHub`: `git clone https://github.com/scipper15/tablesoccer.rocks.git`.
-2. `cd tablesoccer.rocks`
-3. Create virtual environment: `python -m venv ./.venv --upgrade-deps`
-4. Activate environment: `.\.venv\Scripts\activate`
-5. Install requirements: `pip install -r requirements.txt`.
-6. Install `npm` dependencies:
+1. Create virtual environment: `python -m venv ./.venv --upgrade-deps`
+2. Activate environment: `.\.venv\Scripts\activate`
+3. Install requirements: `pip install -r requirements.txt`.
+4. Install `npm` dependencies:
    1. `cd .\tablesoccer_rocks\static\`
    2. `npm install`
-7. Initialize database (go back to root folder):
+5. Initialize database (go back to root folder):
    1. `flask --app tablesoccer_rocks db init` : This creates a `SQLite` database using models in `models`-folder.
    2. `flask --app tablesoccer_rocks user create admin@kc-muenchen.de Admin123!`
-8. Spin up development server: `flask run --debug`
-9. Access page at `http://127.0.0.1:5000/`
+6. Spin up development server: `flask run --debug`
+7. Access page at `http://127.0.0.1:5000/`
 
 ## Usage
 
 ### Development
-
-By default, a user `info@mitkickzentrale.de` is created. Password for development is `1234`.
-
-This behavior can be changed in `init_db.py`. As of today this project is still built up. Many features are not yet implemented but may be added in future releases.
 
 Sign-up feature is not yet implemented. You would access the database and insert a new user there (or delete the old one). Use `SHA256`-hashes for password hashing.
 
